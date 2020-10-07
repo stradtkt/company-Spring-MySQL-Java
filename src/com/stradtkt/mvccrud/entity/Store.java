@@ -1,11 +1,16 @@
 package com.stradtkt.mvccrud.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="store")
@@ -20,9 +25,11 @@ public class Store {
 	private String storeCity;
 	@Column(name="store_zip")
 	private String storeZip;
+	@OneToMany(mappedBy="store", cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	private List<Product> products;
 	
 	public Store() {}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -53,6 +60,14 @@ public class Store {
 
 	public void setStoreZip(String storeZip) {
 		this.storeZip = storeZip;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 
 	@Override

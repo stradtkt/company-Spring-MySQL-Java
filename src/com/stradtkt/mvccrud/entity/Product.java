@@ -1,14 +1,16 @@
 package com.stradtkt.mvccrud.entity;
 
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="store")
@@ -25,8 +27,8 @@ public class Product {
 	private float productPrice;
 	@Column(name="product_on_sale")
 	private boolean productOnSale;
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "storeId", nullable = false)
+	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name="storeId")
 	private Store store;
 	
 	public Product() {}
